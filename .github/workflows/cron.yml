@@ -20,6 +20,7 @@ jobs:
 
       - name: run
         env:
+          ENV: "prod"
           BIRTH_YEAR: ${{ secrets.BIRTH_YEAR}}
           URL: ${{ secrets.URL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
