@@ -1,0 +1,29 @@
+name: cron
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+  schedule:
+    - cron: "0 */3 * * *" # run every 3 hours
+
+jobs:
+  runner:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+
+      - name: run
+        env:
+          BIRTH_YEAR: ${{ secrets.BIRTH_YEAR}}
+          URL: ${{ secrets.URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
+          SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL}}
+        run: |
+          cd ${GITHUB_WORKSPACE}/src/
+          go run main.go
